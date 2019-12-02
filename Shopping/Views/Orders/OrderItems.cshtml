@@ -1,0 +1,46 @@
+﻿@model Shopping.ViewModels.OrdersViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewBag.Title = "Order Items";
+}
+<body>
+    <h1 class="text-center">Order Items</h1>
+    <div class="text-center">
+        <table class="table" id="orderitemstable" title="orderstable" align="center">
+            <thead>
+                <tr>
+                    <th>Order Item ID</th>
+                    <th>Product ID</th>
+                    <th>Order ID</th>
+                    <th>Date</th>
+                    <th>Unit Price</th>
+                    <th>Quantity</th>
+                    <th>Product Price</th>
+                    <th>Action</th>
+                </tr>
+                @foreach (var items in Model.Products)
+                {
+
+                <tr>
+                <td><p id="getorderitemid">@items.OrderItemId </p></td>
+                <td><p id="getproductid"> @items.ProductId</p></td>
+                <td><p id="getorderid">@items.OrderId</p></td>
+                <td><input type="text" id="getdate" value="@items.OrderitemDate" style="text-align:center" /></td>
+                <td><input type="text" id="getunitprice" value="@items.OrderitemUnitPrice" style="text-align:center" disabled /></td>
+                <td><input type="text" id="getquantity" value="@items.OrderitemQuantity" style="text-align:center" oninput="calculate();"  /></td>
+                <td><input type="text" id="getproductprice" value="@items.OrderitemProductPrice" style="text-align:center" disabled /></td>
+                <td>
+                    <a role="button" id="btnedit" class="btn btn-warning" style="display:inline-block;float:inherit;color:white;width:73px" onclick="updateOrder();">Edit</a>
+                    <a role="button" id="btndelete" class="btn btn-danger" style="display:inline-block;float:inherit; color:white" onclick="deleteOrder();">Delete</a>
+                </td>
+            </tr>
+                    
+                }
+
+            </thead>
+        </table>
+    </div>
+</body>
+<script src="~/js/viewOrders.js"></script>

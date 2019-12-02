@@ -1,0 +1,43 @@
+﻿@model Shopping.ViewModels.OrdersViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "View Order Items";
+}
+
+    @*<div class="text-center">
+        <table class="table" id="orderstable" title="orderstable" align="center">
+            <thead>
+                <tr>
+                    <th>Order Item ID</th>
+                    <th>Product ID</th>
+                    <th>Order ID</th>
+                    <th>Date</th>
+                    <th>Unit Price</th>
+                    <th>Quantity</th>
+                    <th>Product Price</th>
+                    <th>Action</th>
+                </tr>
+                @foreach (var products in Model.Products)
+                {
+                    <tr>
+                        <td><p name="getorderitemid">@products.Products.</p></td>
+                        <td><p id="getproductid"> @products.ProductId</p></td>
+                        <td><p id="getorderid">@products.OrderId</p></td>
+                        <td><input type="text" id="getdate" value="@products.OrderitemDate" style="text-align:center" disabled /></td>
+                        <td><input type="text" id="getunitprice" value="@products.OrderitemUnitPrice" style="text-align:center" disabled /></td>
+                        <td><input type="text" id="getquantity" value="@products.OrderitemQuantity" style="text-align:center" disabled /></td>
+                        <td><input type="text" id="getproductprice" value="@products.OrderitemProductPrice" style="text-align:center" disabled /></td>
+                        <td>
+                            <a role="button" id="btnedit" class="btn btn-warning" style="display:inline-block;float:inherit;color:white;width:73px">Edit</a>
+                            <a role="button" id="btndelete" class="btn btn-danger" style="display:inline-block;float:inherit; color:white">Delete</a>
+                        </td>
+                    </tr>
+                }
+
+            </thead>
+        </table>
+
+    </div>*@
+

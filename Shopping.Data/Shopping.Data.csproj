@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20191121074649_updated1.cs" />
+    <Compile Remove="Migrations\20191121074649_updated1.Designer.cs" />
+    <Compile Remove="Migrations\20191121074943_updated2.cs" />
+    <Compile Remove="Migrations\20191121074943_updated2.Designer.cs" />
+    <Compile Remove="Migrations\20191121075101_updated3.cs" />
+    <Compile Remove="Migrations\20191121075101_updated3.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Routing" Version="2.2.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.1" />
+  </ItemGroup>
+
+</Project>
