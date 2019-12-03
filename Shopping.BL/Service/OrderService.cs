@@ -55,7 +55,7 @@ namespace Shopping.BL.Service
         {          
             var order = shoppingContext.Orders.Include(a => a.Products).FirstOrDefault(o => o.OrderId == orders.OrderId);
             var orderLineItem = order.Products.FirstOrDefault(f => f.OrderItemId == orders.OrderItemId);
-            unitOfWork.OrderItemRepository.Delete(orderLineItem);
+            unitOfWork.OrderRepository.Delete(order);
             unitOfWork.Save();
         }
 
@@ -75,7 +75,7 @@ namespace Shopping.BL.Service
                 orderLineItem.OrderitemDate = ord.ProductOrderDate;
                 orderLineItem.OrderitemQuantity = ord.ProductQuantity;
                 orderLineItem.OrderitemProductPrice = ord.ProductPrice;
-                unitOfWork.OrderItemRepository.Update(orderLineItem);
+                unitOfWork.OrderRepository.Update(order);
                 unitOfWork.Save();
             
             
