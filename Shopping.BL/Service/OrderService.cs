@@ -61,7 +61,6 @@ namespace Shopping.BL.Service
 
         public OrderBL GetOrderById(int id)
         {
-            
         return mapper.Map<OrderBL>(ordersRepository.GetOrders().Where(i => i.OrderId == id).FirstOrDefault());
         }
 
