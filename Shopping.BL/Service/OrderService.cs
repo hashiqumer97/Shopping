@@ -52,11 +52,11 @@ namespace Shopping.BL.Service
         }
 
         public void DeleteOrder(OrderBL orders)
-        {
-            var odrBL = shoppingContext.OrderItems.Where(a => a.OrderItemId == orders.OrderItemId).FirstOrDefault();
-            unitOfWork.OrderItemRepository.Delete(odrBL);
+        {          
+            var order = shoppingContext.Orders.Include(a => a.Products).FirstOrDefault(o => o.OrderId == orders.OrderId);
+            var orderLineItem = order.Products.FirstOrDefault(f => f.OrderItemId == orders.OrderItemId);
+            unitOfWork.OrderItemRepository.Delete(orderLineItem);
             unitOfWork.Save();
-
         }
 
         public OrderBL GetOrderById(int id)
@@ -70,12 +70,16 @@ namespace Shopping.BL.Service
 
         public void UpdateOrder(OrderBL ord)
         {
-            var order = shoppingContext.OrderItems.Where(a => a.OrderItemId == ord.OrderItemId).FirstOrDefault();
-            order.OrderitemDate = ord.ProductOrderDate;
-            order.OrderitemQuantity = ord.ProductQuantity;
-            order.OrderitemProductPrice = ord.ProductPrice;
-            unitOfWork.OrderItemRepository.Update(order);
-            unitOfWork.Save();
+            var order = shoppingContext.Orders.Include(a => a.Products).FirstOrDefault(o => o.OrderId == ord.OrderId);
+            var orderLineItem = order.Products.FirstOrDefault(f => f.OrderItemId == ord.OrderItemId);
+            
+                orderLineItem.OrderitemDate = ord.ProductOrderDate;
+                orderLineItem.OrderitemQuantity = ord.ProductQuantity;
+                orderLineItem.OrderitemProductPrice = ord.ProductPrice;
+                unitOfWork.OrderItemRepository.Update(orderLineItem);
+                unitOfWork.Save();
+            
+            
         }
 
        

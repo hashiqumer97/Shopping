@@ -49,6 +49,7 @@ namespace Shopping.Controllers
         public ActionResult EditOrders([FromBody]OrderViewModel orderViewModel)
         {
             orderService.UpdateOrder(mapper.Map<OrderBL>(orderViewModel));
+            Orders();
             return RedirectToAction("AddCart", "AddCart");
         }
 
@@ -60,8 +61,9 @@ namespace Shopping.Controllers
 
             var order = mapper.Map<OrderBL>(ordersViewModel);
             orderService.DeleteEntireOrder(order);
-
+            Orders();
             return View(order);
+            
         }
 
         [HttpPost]
@@ -69,7 +71,7 @@ namespace Shopping.Controllers
         {
             var order = mapper.Map<OrderBL>(orderViewModel);
             orderService.DeleteOrder(order);
-
+            Orders();
             return View(order);
         }
 
