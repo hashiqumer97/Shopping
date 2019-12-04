@@ -195,7 +195,7 @@ function confirmOrder() {
     var orders = {
         ProductOrderDate: date,
         CustomerId: parseInt(customer),
-        Products: products
+        OrderLineItems: products
     };
 
     console.log(JSON.stringify(orders));

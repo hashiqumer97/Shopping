@@ -22,12 +22,12 @@ namespace Shopping.Data.Repository
 
         public List<OrderDL> GetOrders()
         {
-            return _context.Orders.Include(i => i.Products).Include(o => o.Customers).OrderBy(o => o.OrderId).ToList();
+            return _context.Orders.Include(i => i.OrderLineItems).Include(o => o.Customers).OrderBy(o => o.OrderId).ToList();
         }
 
         public IEnumerable<OrderDL> GetOrdersById(int id , int ordid)
         {
-            return  _context.Orders.Where(c => c.OrderId == id).Include((i => i.Products.Any(i => i.OrderItemId == ordid)));  
+            return  _context.Orders.Where(c => c.OrderId == id).Include((i => i.OrderLineItems.Any(i => i.OrderItemId == ordid)));  
         }
 
         public void AddOrder(OrderDL order)

@@ -13,7 +13,7 @@ namespace Shopping.ViewModels
         public int OrderId { get; set; }
         public string ProductOrderDate { get; set; }
         public int CustomerId { get; set; }
-        public List<OrderItemsViewModel> Products { get; set; }
+        public List<OrderItemsViewModel> OrderLineItems { get; set; }
 
     }
 }

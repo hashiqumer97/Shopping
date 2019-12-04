@@ -18,29 +18,29 @@
                     <th>Unit Price</th>
                     <th>Quantity</th>
                     <th>Product Price</th>
-                    <th>Action</th>
+
                 </tr>
-                @foreach (var items in Model.Products)
+                @foreach (var items in Model.OrderLineItems)
                 {
 
-                <tr>
-                <td><p id="getorderitemid">@items.OrderItemId </p></td>
-                <td><p id="getproductid"> @items.ProductId</p></td>
-                <td><p id="getorderid">@items.OrderId</p></td>
-                <td><input type="text" id="getdate" value="@items.OrderitemDate" style="text-align:center" /></td>
-                <td><input type="text" id="getunitprice" value="@items.OrderitemUnitPrice" style="text-align:center" disabled /></td>
-                <td><input type="text" id="getquantity" value="@items.OrderitemQuantity" style="text-align:center" oninput="calculate();"  /></td>
-                <td><input type="text" id="getproductprice" value="@items.OrderitemProductPrice" style="text-align:center" disabled /></td>
-                <td>
-                    <a role="button" id="btnedit" class="btn btn-warning" style="display:inline-block;float:inherit;color:white;width:73px" onclick="updateOrder();">Edit</a>
-                    <a role="button" id="btndelete" class="btn btn-danger" style="display:inline-block;float:inherit; color:white" onclick="deleteOrder();">Delete</a>
-                </td>
-            </tr>
-                    
+                    <tr>
+                        <td><p id="getorderitemid">@items.OrderItemId </p></td>
+                        <td><p id="getproductid"> @items.ProductId</p></td>
+                        <td><p id="getorderid">@items.OrderId</p></td>
+                        <td><input type="text" id="getdate" value="@items.OrderitemDate" style="text-align:center" /></td>
+                        <td><input type="text" id="getunitprice" value="@items.OrderitemUnitPrice" style="text-align:center" disabled /></td>
+                        <td><input type="text" id="getquantity" value="@items.OrderitemQuantity" style="text-align:center" oninput="calculate();" /></td>
+                        <td><input type="text" id="getproductprice" value="@items.OrderitemProductPrice" style="text-align:center" disabled /></td>
+                    </tr>
+
                 }
 
             </thead>
         </table>
+        
+    </div>
+    <div class="text-center">
+        <a role="button" id="btnedit" class="btn btn-warning" style="align-items:center;color:white" onclick="updateOrder();">Edit Order</a>
     </div>
 </body>
 <script src="~/js/viewOrders.js"></script>

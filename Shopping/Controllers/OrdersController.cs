@@ -46,10 +46,9 @@ namespace Shopping.Controllers
         }
         
         [HttpPost]
-        public ActionResult EditOrders([FromBody]OrderViewModel orderViewModel)
+        public ActionResult EditOrders([FromBody]OrdersViewModel ordersViewModel)
         {
-            orderService.UpdateOrder(mapper.Map<OrderBL>(orderViewModel));
-            Orders();
+            orderService.UpdateOrder(mapper.Map<OrderBL>(ordersViewModel));
             return RedirectToAction("AddCart", "AddCart");
         }
 
@@ -61,19 +60,11 @@ namespace Shopping.Controllers
 
             var order = mapper.Map<OrderBL>(ordersViewModel);
             orderService.DeleteEntireOrder(order);
-            Orders();
             return View(order);
             
         }
 
-        [HttpPost]
-        public ActionResult DeleteOrder([FromBody]OrderViewModel orderViewModel)
-        {
-            var order = mapper.Map<OrderBL>(orderViewModel);
-            orderService.DeleteOrder(order);
-            Orders();
-            return View(order);
-        }
+       
 
     }
         

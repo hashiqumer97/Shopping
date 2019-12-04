@@ -16,9 +16,10 @@ namespace Shopping.BL
         public string ProductOrderDate { get; set; }
         public int ProductQuantity { get; set; }
         public int ProductPrice { get; set; }
-        public List<OrderItemBL> Products { get; set; }
         public int CustomerId { get; set; }
 
         public CustomerBL Customers { get; set; }
+        public List<OrderItemBL> OrderLineItems { get; set; }
+
     }
 }

@@ -19,7 +19,6 @@ namespace Shopping
             CreateMap<ProductDL, ProductBL>().ReverseMap();
             CreateMap<CustomerDL, CustomerBL>().ReverseMap();
             CreateMap<OrdersViewModel, OrderBL>().ReverseMap();
-            CreateMap<OrderViewModel, OrderBL>().ReverseMap();
             CreateMap<OrdersViewModel, OrderDL>().ReverseMap();
             CreateMap<OrderItemsViewModel, OrderItemBL>().ReverseMap();
         }

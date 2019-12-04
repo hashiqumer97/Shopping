@@ -16,7 +16,7 @@ namespace Shopping.BL.Service
 {
     public class OrderService : IOrderService
     {
-        
+
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
         private readonly ShoppingContext shoppingContext;
@@ -30,7 +30,7 @@ namespace Shopping.BL.Service
             this.ordersRepository = ordersRepository;
         }
 
-        
+
 
         public List<OrderBL> GetOrders()
         {
@@ -51,36 +51,33 @@ namespace Shopping.BL.Service
 
         }
 
-        public void DeleteOrder(OrderBL orders)
-        {          
-            var order = shoppingContext.Orders.Include(a => a.Products).FirstOrDefault(o => o.OrderId == orders.OrderId);
-            var orderLineItem = order.Products.FirstOrDefault(f => f.OrderItemId == orders.OrderItemId);
-            unitOfWork.OrderRepository.Delete(order);
-            unitOfWork.Save();
-        }
-
         public OrderBL GetOrderById(int id)
         {
-        return mapper.Map<OrderBL>(ordersRepository.GetOrders().Where(i => i.OrderId == id).FirstOrDefault());
+            return mapper.Map<OrderBL>(ordersRepository.GetOrders().Where(i => i.OrderId == id).FirstOrDefault());
         }
 
-        
-            
+
+
 
         public void UpdateOrder(OrderBL ord)
         {
-            var order = shoppingContext.Orders.Include(a => a.Products).FirstOrDefault(o => o.OrderId == ord.OrderId);
-            var orderLineItem = order.Products.FirstOrDefault(f => f.OrderItemId == ord.OrderItemId);
-            
-                orderLineItem.OrderitemDate = ord.ProductOrderDate;
-                orderLineItem.OrderitemQuantity = ord.ProductQuantity;
-                orderLineItem.OrderitemProductPrice = ord.ProductPrice;
-                unitOfWork.OrderRepository.Update(order);
-                unitOfWork.Save();
-            
-            
+            var order = shoppingContext.Orders.Include(a => a.OrderLineItems).FirstOrDefault(o => o.OrderId == ord.OrderId);
+            var orderLineItem = order.OrderLineItems.ToList();
+
+            foreach (var item in orderLineItem)
+            {
+                var lineItem = ord.OrderLineItems.FirstOrDefault(f => f.OrderItemId == item.OrderItemId);
+                item.OrderitemDate = lineItem.OrderitemDate;
+                item.OrderitemQuantity = lineItem.OrderitemQuantity;
+                item.OrderitemProductPrice = lineItem.OrderitemProductPrice;
+
+            }
+            unitOfWork.OrderRepository.Update(order);
+            unitOfWork.Save();
+
+
         }
 
-       
+
     }
 }
