@@ -40,10 +40,8 @@ function updateOrder() {
             };
 
             products.push(ordersLineItem);
-        }
+        } 
     }
-
-
 
     order = {
         orderId: orderId,
@@ -55,6 +53,7 @@ function updateOrder() {
     http.setRequestHeader("Content-Type", "application/json");
     http.send(JSON.stringify(order));
     alert("The Order Item has been updated Successfully!");
+    location.reload();
 }
 
 function deleteOrder() {
@@ -87,10 +86,8 @@ function deleteOrder() {
             };
 
             products.push(ordersLineItem);
-        }
+        } 
     }
-
-
 
     order = {
         orderId: orderId,
@@ -102,6 +99,7 @@ function deleteOrder() {
     http.setRequestHeader("Content-Type", "application/json");
     http.send(JSON.stringify(order));
     alert("The Order Item has been deleted Successfully!");
+    location.reload();
 }
 
 function deleteOrderLineRows() {
