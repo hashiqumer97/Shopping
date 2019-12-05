@@ -20,13 +20,16 @@ namespace Shopping.BL.Service
         private readonly IMapper mapper;
         private readonly ShoppingContext shoppingContext;
         private readonly OrdersRepository ordersRepository;
+        private readonly IProductService productService;
 
-        public OrderService(IUnitOfWork unitOfWork, IMapper mapper, ShoppingContext shoppingContext, OrdersRepository ordersRepository)
+        public OrderService(IUnitOfWork unitOfWork, IMapper mapper, ShoppingContext shoppingContext
+            , OrdersRepository ordersRepository, IProductService productService)
         {
             this.unitOfWork = unitOfWork;
             this.mapper = mapper;
             this.shoppingContext = shoppingContext;
             this.ordersRepository = ordersRepository;
+            this.productService = productService;
         }
         public List<OrderBL> GetOrders()
         {
@@ -36,6 +39,10 @@ namespace Shopping.BL.Service
         {
             var ord = mapper.Map<OrderDL>(order);
             ordersRepository.AddOrder(ord);
+            foreach (var item in order.OrderLineItems)
+            {
+                productService.Update(item.ProductId, -(item.OrderitemQuantity));
+            }
         }
         public void DeleteEntireOrder(OrderBL orders)
         {
@@ -67,7 +74,6 @@ namespace Shopping.BL.Service
         {
             var order = shoppingContext.Orders.Include(a => a.OrderLineItems).FirstOrDefault(o => o.OrderId == ord.OrderId);
             var orderLineItem = order.OrderLineItems.ToList();
-
             foreach (var item in orderLineItem)
             {
                 var lineItem = ord.OrderLineItems.FirstOrDefault(f => f.OrderItemId == item.OrderItemId);
@@ -75,9 +81,11 @@ namespace Shopping.BL.Service
                 item.OrderitemDate = lineItem.OrderitemDate;
                 item.OrderitemQuantity = lineItem.OrderitemQuantity;
                 item.OrderitemProductPrice = lineItem.OrderitemProductPrice;
-
+              
             }
+             
             unitOfWork.OrderRepository.Update(order);
+            
             unitOfWork.Save();
         }
     }

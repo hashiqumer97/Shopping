@@ -34,6 +34,22 @@ namespace Shopping.BL.Service
             return mapper.Map<ProductBL>(unitOfWork.ProductRepository.GetByID(id));
         }
 
+        public void Update(int productId, int quantity)
+        {
+            var productBO = unitOfWork.ProductRepository.GetByID(productId);
 
+            if (productBO != null)
+            {
+                productBO.Quantity = productBO.Quantity + quantity;
+            }
+            else
+            {
+                throw new Exception();
+            }
+
+            var product = mapper.Map<ProductDL>(productBO);
+            unitOfWork.ProductRepository.Update(product);
+            unitOfWork.Save();
+        }
     }
 }

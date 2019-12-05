@@ -10,5 +10,7 @@ namespace Shopping.BL.Interface
         List<ProductBL> GetProducts();
 
         ProductBL GetProductSubCategories(int id);
+
+        void Update(int productId, int quantity);
     }
 }
