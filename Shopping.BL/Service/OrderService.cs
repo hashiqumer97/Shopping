@@ -48,11 +48,12 @@ namespace Shopping.BL.Service
         public void DeleteOrder(OrderBL ord)
         {
             var order = unitOfWork.OrderRepository.Get(includeProperties: "OrderLineItems").FirstOrDefault(o => o.OrderId == ord.OrderId);
-            
-            foreach(var item in order.OrderLineItems)
+            var ordermap = mapper.Map<OrderDL>(ord);
+            foreach (var item in ord.OrderLineItems.ToList())
             {
-                var orderMap = mapper.Map<OrderItemDL>(item);
-                unitOfWork.OrderItemRepository.Delete(orderMap);
+                var orderItem = order.OrderLineItems.FirstOrDefault(o => o.OrderItemId == item.OrderItemId);
+                order.OrderLineItems.Remove(orderItem);
+                unitOfWork.OrderRepository.Update(order);
                 unitOfWork.Save();
             }
         }
