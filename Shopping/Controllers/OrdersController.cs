@@ -52,7 +52,12 @@ namespace Shopping.Controllers
             return RedirectToAction("AddCart", "AddCart");
         }
 
-        
+        [HttpPost]
+        public ActionResult DeleteOrder([FromBody]OrdersViewModel ordersViewModel)
+        {
+            orderService.DeleteOrder(mapper.Map<OrderBL>(ordersViewModel));
+            return RedirectToAction("AddCart", "AddCart");
+        }
 
         [HttpPost]
         public ActionResult DeleteOrders([FromBody]OrdersViewModel ordersViewModel)

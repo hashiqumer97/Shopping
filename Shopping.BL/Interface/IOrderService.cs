@@ -14,6 +14,7 @@ namespace Shopping.BL.Interface
         void CreateOrder(OrderBL order);
         void UpdateOrder(OrderBL order);
         void DeleteEntireOrder(OrderBL orders);
+        void DeleteOrder(OrderBL ord);
 
 
     }

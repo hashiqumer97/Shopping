@@ -16,7 +16,6 @@ namespace Shopping.BL.Service
 {
     public class OrderService : IOrderService
     {
-
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
         private readonly ShoppingContext shoppingContext;
@@ -29,20 +28,15 @@ namespace Shopping.BL.Service
             this.shoppingContext = shoppingContext;
             this.ordersRepository = ordersRepository;
         }
-
-
-
         public List<OrderBL> GetOrders()
         {
             return mapper.Map<List<OrderBL>>(unitOfWork.OrderRepository.Get());
         }
-
         public void CreateOrder(OrderBL order)
         {
             var ord = mapper.Map<OrderDL>(order);
             ordersRepository.AddOrder(ord);
         }
-
         public void DeleteEntireOrder(OrderBL orders)
         {
             var odrBL = shoppingContext.Orders.Where(a => a.OrderId == orders.OrderId).FirstOrDefault();
@@ -51,13 +45,22 @@ namespace Shopping.BL.Service
 
         }
 
+        public void DeleteOrder(OrderBL ord)
+        {
+            var order = unitOfWork.OrderRepository.Get(includeProperties: "OrderLineItems").FirstOrDefault(o => o.OrderId == ord.OrderId);
+            
+            foreach(var item in order.OrderLineItems)
+            {
+                var orderMap = mapper.Map<OrderItemDL>(item);
+                unitOfWork.OrderItemRepository.Delete(orderMap);
+                unitOfWork.Save();
+            }
+        }
+
         public OrderBL GetOrderById(int id)
         {
             return mapper.Map<OrderBL>(ordersRepository.GetOrders().Where(i => i.OrderId == id).FirstOrDefault());
         }
-
-
-
 
         public void UpdateOrder(OrderBL ord)
         {
@@ -67,6 +70,7 @@ namespace Shopping.BL.Service
             foreach (var item in orderLineItem)
             {
                 var lineItem = ord.OrderLineItems.FirstOrDefault(f => f.OrderItemId == item.OrderItemId);
+                if (lineItem is null) continue;
                 item.OrderitemDate = lineItem.OrderitemDate;
                 item.OrderitemQuantity = lineItem.OrderitemQuantity;
                 item.OrderitemProductPrice = lineItem.OrderitemProductPrice;
@@ -74,10 +78,6 @@ namespace Shopping.BL.Service
             }
             unitOfWork.OrderRepository.Update(order);
             unitOfWork.Save();
-
-
         }
-
-
     }
 }
