@@ -16,7 +16,7 @@ namespace Shopping.ViewModels
         public int OrderitemUnitPrice { get; set; }
         public int OrderitemQuantity { get; set; }
         public int OrderitemProductPrice { get; set; }
-
+        public bool IsDelete { get; set; }
 
 
     }

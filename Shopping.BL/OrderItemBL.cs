@@ -23,5 +23,6 @@ namespace Shopping.BL
         public int OrderitemUnitPrice { get; set; }
         public int OrderitemQuantity { get; set; }
         public int OrderitemProductPrice { get; set; }
+        public bool IsDelete { get; set; }
     }
 }

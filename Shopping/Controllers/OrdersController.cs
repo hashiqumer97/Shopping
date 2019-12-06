@@ -48,14 +48,14 @@ namespace Shopping.Controllers
         [HttpPost]
         public ActionResult EditOrders([FromBody]OrdersViewModel ordersViewModel)
         {
-            orderService.UpdateOrder(mapper.Map<OrderBL>(ordersViewModel));
+            orderService.ChangeOrder(mapper.Map<OrderBL>(ordersViewModel));
             return RedirectToAction("AddCart", "AddCart");
         }
 
         [HttpPost]
         public ActionResult DeleteOrder([FromBody]OrdersViewModel ordersViewModel)
         {
-            orderService.DeleteOrder(mapper.Map<OrderBL>(ordersViewModel));
+            orderService.ChangeOrder(mapper.Map<OrderBL>(ordersViewModel));
             return RedirectToAction("AddCart", "AddCart");
         }
 

@@ -38,14 +38,7 @@ namespace Shopping.BL.Service
         {
             var productBO = unitOfWork.ProductRepository.GetByID(productId);
 
-            if (productBO != null)
-            {
-                productBO.Quantity = productBO.Quantity + quantity;
-            }
-            else
-            {
-                throw new Exception();
-            }
+            productBO.Quantity = productBO.Quantity + quantity;
 
             var product = mapper.Map<ProductDL>(productBO);
             unitOfWork.ProductRepository.Update(product);

@@ -10,8 +10,8 @@
     }
 
 }
+var products = [];
 function updateOrder() {
-    var products = [];
     var orderId = 0;
     var http = new XMLHttpRequest();
 
@@ -37,7 +37,10 @@ function updateOrder() {
                 OrderitemUnitPrice: parseInt(uprice),
                 OrderitemQuantity: parseInt(qty),
                 OrderItemProductPrice: parseInt(prodprice),
+                OrderId: 0,
+                IsDelete: false
             };
+            ordersLineItem.OrderId = parseInt(orderId);
 
             products.push(ordersLineItem);
         } 
@@ -57,7 +60,6 @@ function updateOrder() {
 }
 
 function deleteOrder() {
-    var products = [];
     var orderId = 0;
     var http = new XMLHttpRequest();
 
@@ -83,6 +85,7 @@ function deleteOrder() {
                 OrderitemUnitPrice: parseInt(uprice),
                 OrderitemQuantity: parseInt(qty),
                 OrderItemProductPrice: parseInt(prodprice),
+                IsDelete: true
             };
 
             products.push(ordersLineItem);

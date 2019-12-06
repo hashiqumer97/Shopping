@@ -12,9 +12,9 @@ namespace Shopping.BL.Interface
         List<OrderBL> GetOrders();
         OrderBL GetOrderById(int id);
         void CreateOrder(OrderBL order);
-        void UpdateOrder(OrderBL order);
         void DeleteEntireOrder(OrderBL orders);
-        void DeleteOrder(OrderBL ord);
+        void ChangeOrder(OrderBL orderBO);
+
 
 
     }

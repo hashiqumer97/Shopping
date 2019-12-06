@@ -52,41 +52,36 @@ namespace Shopping.BL.Service
 
         }
 
-        public void DeleteOrder(OrderBL ord)
+        public void ChangeOrder(OrderBL items)
         {
-            var order = unitOfWork.OrderRepository.Get(includeProperties: "OrderLineItems").FirstOrDefault(o => o.OrderId == ord.OrderId);
-            var ordermap = mapper.Map<OrderDL>(ord);
-            foreach (var item in ord.OrderLineItems.ToList())
+            foreach (var item in items.OrderLineItems)
             {
-                var orderItem = order.OrderLineItems.FirstOrDefault(o => o.OrderItemId == item.OrderItemId);
-                order.OrderLineItems.Remove(orderItem);
-                unitOfWork.OrderRepository.Update(order);
-                unitOfWork.Save();
+                var tempordline = unitOfWork.OrderItemRepository.GetByID(item.OrderItemId);
+                var tempdiff = tempordline.OrderitemQuantity - item.OrderitemQuantity;
+                tempordline.OrderitemQuantity = item.OrderitemQuantity;
+                if (item.IsDelete)
+                {
+                    var orderitem = mapper.Map<OrderItemDL>(item);
+                    if (orderitem is null) continue;
+                    unitOfWork.OrderItemRepository.Delete(orderitem);
+                    unitOfWork.Save();
+                }
+                else
+                {
+                    var orderitem = mapper.Map<OrderItemDL>(item);
+
+                    if (orderitem is null) continue;
+                    unitOfWork.OrderItemRepository.Update(tempordline);
+                    unitOfWork.Save();
+                }
+                productService.Update(item.ProductId, tempdiff);
             }
         }
-
         public OrderBL GetOrderById(int id)
         {
             return mapper.Map<OrderBL>(ordersRepository.GetOrders().Where(i => i.OrderId == id).FirstOrDefault());
         }
 
-        public void UpdateOrder(OrderBL ord)
-        {
-            var order = shoppingContext.Orders.Include(a => a.OrderLineItems).FirstOrDefault(o => o.OrderId == ord.OrderId);
-            var orderLineItem = order.OrderLineItems.ToList();
-            foreach (var item in orderLineItem)
-            {
-                var lineItem = ord.OrderLineItems.FirstOrDefault(f => f.OrderItemId == item.OrderItemId);
-                if (lineItem is null) continue;
-                item.OrderitemDate = lineItem.OrderitemDate;
-                item.OrderitemQuantity = lineItem.OrderitemQuantity;
-                item.OrderitemProductPrice = lineItem.OrderitemProductPrice;
-              
-            }
-             
-            unitOfWork.OrderRepository.Update(order);
-            
-            unitOfWork.Save();
-        }
+     
     }
 }

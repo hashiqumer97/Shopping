@@ -21,5 +21,7 @@ namespace Shopping.BL
         public CustomerBL Customers { get; set; }
         public List<OrderItemBL> OrderLineItems { get; set; }
 
+        public bool IsDelete { get; set; }
+
     }
 }
