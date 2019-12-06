@@ -18,17 +18,12 @@ namespace Shopping.BL.Service
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
-        private readonly ShoppingContext shoppingContext;
-        private readonly OrdersRepository ordersRepository;
         private readonly IProductService productService;
 
-        public OrderService(IUnitOfWork unitOfWork, IMapper mapper, ShoppingContext shoppingContext
-            , OrdersRepository ordersRepository, IProductService productService)
+        public OrderService(IUnitOfWork unitOfWork, IMapper mapper, IProductService productService)
         {
             this.unitOfWork = unitOfWork;
             this.mapper = mapper;
-            this.shoppingContext = shoppingContext;
-            this.ordersRepository = ordersRepository;
             this.productService = productService;
         }
         public List<OrderBL> GetOrders()
@@ -38,7 +33,7 @@ namespace Shopping.BL.Service
         public void CreateOrder(OrderBL order)
         {
             var ord = mapper.Map<OrderDL>(order);
-            ordersRepository.AddOrder(ord);
+            unitOfWork.OrderRepository.Create(ord);
             foreach (var item in order.OrderLineItems)
             {
                 productService.Update(item.ProductId, -(item.OrderitemQuantity));
@@ -46,12 +41,10 @@ namespace Shopping.BL.Service
         }
         public void DeleteEntireOrder(OrderBL orders)
         {
-            var odrBL = shoppingContext.Orders.Where(a => a.OrderId == orders.OrderId).FirstOrDefault();
-            unitOfWork.OrderRepository.Delete(odrBL);
+            var order = mapper.Map<OrderDL>(orders);
+            unitOfWork.OrderRepository.Delete(order);
             unitOfWork.Save();
-
         }
-
         public void ChangeOrder(OrderBL items)
         {
             foreach (var item in items.OrderLineItems)
@@ -63,7 +56,7 @@ namespace Shopping.BL.Service
                 {
                     var orderitem = mapper.Map<OrderItemDL>(item);
                     if (orderitem is null) continue;
-                    unitOfWork.OrderItemRepository.Delete(orderitem);
+                    unitOfWork.OrderItemRepository.Delete(tempordline);
                     unitOfWork.Save();
                 }
                 else
@@ -79,7 +72,8 @@ namespace Shopping.BL.Service
         }
         public OrderBL GetOrderById(int id)
         {
-            return mapper.Map<OrderBL>(ordersRepository.GetOrders().Where(i => i.OrderId == id).FirstOrDefault());
+            var getord = unitOfWork.OrderRepository.Get(includeProperties: "OrderLineItems").FirstOrDefault(o => o.OrderId == id);
+            return mapper.Map<OrderBL>(getord);
         }
 
      

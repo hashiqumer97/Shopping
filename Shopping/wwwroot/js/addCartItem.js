@@ -239,6 +239,7 @@ function deleteEntireOrder() {
             http.setRequestHeader("Content-Type", "application/json");
             http.send(JSON.stringify(orders));
             alert("The Order has been deleted Successfully!");
+            location.reload();
         }
     }
 
