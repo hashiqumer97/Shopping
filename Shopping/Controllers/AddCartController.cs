@@ -25,16 +25,14 @@ namespace Shopping.Controllers
     [Authorize]
     public class AddCartController : Controller
     {
-        private Shopping.Data.ShoppingContext _context;
         private readonly IMapper _mapper;
         private readonly IProductService productService;
         private readonly ICustomerService customerService;
         private readonly IOrderService orderService;
 
-        public AddCartController(Shopping.Data.ShoppingContext context, IMapper mapper, IProductService productService
+        public AddCartController(IMapper mapper, IProductService productService
             , ICustomerService customerService, IOrderService orderService)
         {
-            _context = context;
             _mapper = mapper;
             this.productService = productService;
             this.customerService = customerService;
@@ -44,18 +42,12 @@ namespace Shopping.Controllers
         [HttpGet]
         public IActionResult AddCart()
         {
-            //var productNameResult = productService.GetProducts()
-            //   .Select(s => new ProductListModel { Text = s.ProductName, Value = s.ProductId }).ToList();
 
             AddCartViewModel model1 = new AddCartViewModel
             {
                 ProductListModel = new List<SelectListItem>()
             };
 
-            //foreach(var item in productNameResult)
-            //{
-            //    model1.ProductListModel.Add(new SelectListItem { Text = item.Text, Value = item.Value.ToString() });
-            //}
             model1.SelectedProductName = _mapper.Map<List<ProductPL>>(productService.GetProducts());
             model1.SelectedCustomerName = _mapper.Map<List<CustomerPL>>(customerService.GetCustomers());
             return View(model1);
@@ -78,12 +70,7 @@ namespace Shopping.Controllers
         {
             var order = _mapper.Map<OrderBL>(ordersViewModel);
             orderService.CreateOrder(order);
-
             return RedirectToAction("AddCart", "AddCart");
-
-
         }
-
-     
     }
 }

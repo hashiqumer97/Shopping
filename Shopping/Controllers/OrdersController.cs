@@ -62,15 +62,9 @@ namespace Shopping.Controllers
         [HttpPost]
         public ActionResult DeleteOrders([FromBody]OrdersViewModel ordersViewModel)
         {
-
             var order = mapper.Map<OrderBL>(ordersViewModel);
             orderService.DeleteEntireOrder(order);
             return View(order);
-            
         }
-
-       
-
-    }
-        
+    }       
 }

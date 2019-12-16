@@ -26,7 +26,6 @@ namespace Shopping.BL.Service
         public List<ProductBL> GetProducts()
         {
             return mapper.Map<List<ProductBL>>(productRepository.GetProducts());
-
         }
 
         public ProductBL GetProductSubCategories(int id)
@@ -36,13 +35,13 @@ namespace Shopping.BL.Service
 
         public void Update(int productId, int quantity)
         {
+            
             var productBO = unitOfWork.ProductRepository.GetByID(productId);
-
             productBO.Quantity = productBO.Quantity + quantity;
-
             var product = mapper.Map<ProductDL>(productBO);
             unitOfWork.ProductRepository.Update(product);
             unitOfWork.Save();
+
         }
     }
 }
