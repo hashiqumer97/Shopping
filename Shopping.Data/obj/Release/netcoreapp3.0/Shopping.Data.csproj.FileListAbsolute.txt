@@ -1,0 +1,8 @@
+C:\Users\Admin\source\repos\Shopping\Shopping.Data\bin\Release\netcoreapp3.0\Shopping.Data.deps.json
+C:\Users\Admin\source\repos\Shopping\Shopping.Data\bin\Release\netcoreapp3.0\Shopping.Data.dll
+C:\Users\Admin\source\repos\Shopping\Shopping.Data\bin\Release\netcoreapp3.0\Shopping.Data.pdb
+C:\Users\Admin\source\repos\Shopping\Shopping.Data\obj\Release\netcoreapp3.0\Shopping.Data.csprojAssemblyReference.cache
+C:\Users\Admin\source\repos\Shopping\Shopping.Data\obj\Release\netcoreapp3.0\Shopping.Data.AssemblyInfoInputs.cache
+C:\Users\Admin\source\repos\Shopping\Shopping.Data\obj\Release\netcoreapp3.0\Shopping.Data.AssemblyInfo.cs
+C:\Users\Admin\source\repos\Shopping\Shopping.Data\obj\Release\netcoreapp3.0\Shopping.Data.dll
+C:\Users\Admin\source\repos\Shopping\Shopping.Data\obj\Release\netcoreapp3.0\Shopping.Data.pdb

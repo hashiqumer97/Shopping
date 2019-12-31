@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA26/mz6aO7keDj8484NYEHwAAAAACAAAAAAAQZgAAAAEAACAAAABzOwvjA9O4P7TdMq/R7H/5huRc38x3JgT6TxoJO6R8NgAAAAAOgAAAAAIAACAAAACiAS4F0cjpDy2rkXcrDksoGQYF8mL40LiP2IaolKcCE4AAAADtdFM/Mes1Mzx8CrcbD3mRlGD6dQku1g4ZrgVTzmRVoGBPFWqY2/m2SloXRide9Sf77oOnHP/S4rdLzaPXunHVFbXNidoRoMa+VQL8ghl58zMLkQhZkGXZ/geOsrg30uR9QlPotOJ6+JI8FhiliRMAfuZpzm91m3Mx5FtRWN8aQkAAAACADqg1lkpIuXBudyGSO4v762sl2rvxv+5kHyhSQyUh4O/OI+QlB5GLcU21KtOPfau3OM53i7r5gqvgu/WejNME</EncryptedPassword>
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="Shopping">
+      <Value>Server=tcp:hashiq.database.windows.net,1433%3bInitial Catalog=Shopping%3bPersist Security Info=False%3bUser ID=hashiq%3bPassword={your_password}%3bMultipleActiveResultSets=False%3bEncrypt=True%3bTrustServerCertificate=False%3bConnection Timeout=30%3b</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+</Project>
